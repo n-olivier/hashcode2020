@@ -1,4 +1,5 @@
 from library import *
+import random
 
 filename = 'd_tough_choices.txt'
 f = open('files/' + filename, 'r')
@@ -9,16 +10,16 @@ temp_libs = LIBS
 books_score = list(map(int, f.readline().split()))
 
 libraries = []
-libraries.sort()
 
 while LIBS > 0:
     lib_info = list(map(int, f.readline().split()))
 
     lib_books = list(map(int, f.readline().split()))
-    lib = Library(temp_libs - LIBS, lib_info[0], lib_info[1], lib_info[2], lib_books)
+    lib = Library(temp_libs - LIBS, lib_info[0], lib_info[1], lib_info[2], lib_books, books_score)
     libraries.append(lib)
 
     LIBS -= 1
+libraries.sort(reverse=True)
 
 
 def sort_by_book_score(lib):
@@ -76,7 +77,7 @@ while DAYS > 0:
 output = open(filename + 'output', 'a')
 
 output.write(str(len(scanned_libs)) + '\n')
-ii=0
+ii = 0
 for each in scanned_libs:
     if len(each.scanned_books) == 0:
         ii += 1
@@ -84,4 +85,3 @@ for each in scanned_libs:
     output.write(str(each.lib_id) + ' ' + str(len(each.scanned_books)) + '\n')
     output.write(' '.join(list(map(str, each.scanned_books))) + '\n')
 print(ii)
-
